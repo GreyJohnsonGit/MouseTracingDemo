@@ -14,13 +14,13 @@
             const IncrementArea = viewWidth => {
                 var thirdName
                 if (viewWidth < 33)
-                    third = 'third1'
+                    thirdName = 'third1'
                 else if (viewWidth < 66)
-                    third = 'third2'
+                    thirdName = 'third2'
                 else
-                    third = 'third3'
+                    thirdName = 'third3'
                 
-                var third = document.getElementById(third)
+                var third = document.getElementById(thirdName)
                 var newColor = parseInt(third.style["background-color"].split(', ')[2].split(')')[0]) - 8
                 third.style["background-color"] = `rgb(255, ${newColor}, ${newColor})`
             }
