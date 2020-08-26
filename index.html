@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+    <head></head>
+    <body>
+        <div style="height:100vh;width:100vw" id="box">
+            <div style="position:absolute;z-index:-1;top:0vh;left:0vw;height:100vh;width:33vw;background-color:rgb(255, 255, 255);" id="third1"></div>
+            <div style="position:absolute;z-index:-1;top:0vh;left:33vw;height:100vh;width:33vw;background-color:rgb(255, 255, 255);" id="third2"></div>
+            <div style="position:absolute;z-index:-1;top:0vh;left:66vw;height:100vh;width:33vw;background-color:rgb(255, 255, 255);" id="third3"></div>
+            <h1>Mouse Watch Demo</h1>
+        </div>
+        <script>
+            const box = document.getElementById('box')
+
+            const IncrementArea = viewWidth => {
+                var thirdName
+                if (viewWidth < 33)
+                    third = 'third1'
+                else if (viewWidth < 66)
+                    third = 'third2'
+                else
+                    third = 'third3'
+                
+                var third = document.getElementById(third)
+                var newColor = parseInt(third.style["background-color"].split(', ')[2].split(')')[0]) - 8
+                third.style["background-color"] = `rgb(255, ${newColor}, ${newColor})`
+            }
+
+            const GetViewPortCoordinates = mouseEvent => {
+                return [100*(mouseEvent.y/mouseEvent.view.innerHeight), 100*(mouseEvent.x/mouseEvent.view.innerWidth)]
+            }
+
+            box.addEventListener('mousemove', e => {
+                var dot = document.createElement('div')
+                var [viewHeight, viewWidth] = GetViewPortCoordinates(e)
+                dot.style.cssText = `margin:0;position:absolute;top:${viewHeight}vh;left:${viewWidth}vw;width:10px;height:10px;border-radius:15px;background:green;`
+                box.appendChild(dot)
+            })
+            box.addEventListener('click', e => {
+                var dot = document.createElement('div')
+                var [viewHeight, viewWidth] = GetViewPortCoordinates(e)
+                dot.style.cssText = `margin:0;position:absolute;z-index:+1;top:${viewHeight}vh;left:${viewWidth}vw;width:15px;height:15px;border-radius:25px;background:orange;`
+                box.appendChild(dot)
+
+                IncrementArea(viewWidth)
+            })
+        </script>
+    </body>
+</html>
